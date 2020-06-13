@@ -15,6 +15,17 @@ class App extends Component {
     itemLength: 0,
   };
 
+  constructor(props) {
+    //Once constructor is defined we need to call the super.
+    super(props);
+    console.log("App Constructor", this.props);
+  }
+
+  componentDidMount() {
+    //Last method will be called in a react component.
+    console.log("App Mounted");
+  }
+
   handleDelete = (counterId) => {
     const counters = this.state.counters.filter((s) => s.id !== counterId);
     this.setState({ counters });
@@ -23,7 +34,16 @@ class App extends Component {
   handleIncrement = (counter) => {
     const counters = [...this.state.counters];
     const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
     counters[index].value++;
+    this.setState({ counters });
+  };
+
+  handleDecrement = (counter) => {
+    const counters = [...this.state.counters];
+    const index = counters.indexOf(counter);
+    counters[index] = { ...counter };
+    counters[index].value--;
     this.setState({ counters });
   };
 
@@ -36,6 +56,7 @@ class App extends Component {
   };
 
   render() {
+    console.log("App Rendered");
     return (
       <div>
         <NavBar
@@ -49,6 +70,7 @@ class App extends Component {
             onResetAll={this.handleResetAll}
             onDelete={this.handleDelete}
             onIncrement={this.handleIncrement}
+            onDecrement={this.handleDecrement}
             counters={this.state.counters}
           />
         </main>
