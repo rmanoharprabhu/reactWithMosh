@@ -12,6 +12,7 @@ class App extends Component {
       { id: 4, value: 0 },
       { id: 5, value: 0 },
     ],
+    itemLength: 0,
   };
 
   handleDelete = (counterId) => {
@@ -39,6 +40,9 @@ class App extends Component {
       <div>
         <NavBar
           countLength={this.state.counters.filter((s) => s.value !== 0).length}
+          itemLength={this.state.counters
+            .map((s) => s.value)
+            .reduce((prev, curr) => prev + curr, 0)}
         />
         <main className="container">
           <Counters
